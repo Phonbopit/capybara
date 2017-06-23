@@ -79,7 +79,7 @@ Capybara::SpecHelper.spec '#switch_to_window', requires: [:windows] do
         @session.within(:css, '#doesNotOpenWindows') do
           @session.switch_to_window { @session.title == 'With Windows' }
         end
-      end.to raise_error(Capybara::ScopeError, "`switch_to_window` is not supposed to be invoked from `within`'s, `within_frame`'s' or `within_window`'s' block.")
+      end.to raise_error(Capybara::ScopeError, /`switch_to_window` is not supposed to be invoked/)
     end
 
     it "should raise error when invoked inside `within_frame` as it's nonsense" do
@@ -87,7 +87,7 @@ Capybara::SpecHelper.spec '#switch_to_window', requires: [:windows] do
         @session.within_frame('frameOne') do
           @session.switch_to_window { @session.title == 'With Windows' }
         end
-      end.to raise_error(Capybara::ScopeError, "`switch_to_window` is not supposed to be invoked from `within`'s, `within_frame`'s' or `within_window`'s' block.")
+      end.to raise_error(Capybara::ScopeError, /`switch_to_window` is not supposed to be invoked from/)
     end
 
     it "should raise error when invoked inside `within_window` as it's nonsense" do
@@ -96,7 +96,7 @@ Capybara::SpecHelper.spec '#switch_to_window', requires: [:windows] do
         @session.within_window window do
           @session.switch_to_window { @session.title == 'With Windows' }
         end
-      end.to raise_error(Capybara::ScopeError, "`switch_to_window` is not supposed to be invoked from `within`'s, `within_frame`'s' or `within_window`'s' block.")
+      end.to raise_error(Capybara::ScopeError, /`switch_to_window` is not supposed to be invoked from/)
     end
 
     it "should raise error if window matching block wasn't found" do
